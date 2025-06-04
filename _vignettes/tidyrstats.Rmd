@@ -12,37 +12,28 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
-
-
-#devtools::install_github('bansell/tidyrstats')
-devtools::load_all()
 ```
+
+
 
 ## Description 
 
 This package contains helper functions for implementing common statistical functions in R, within tidy workflows.
 
-## Install
 
-```{r, eval=FALSE}
-if (!requireNamespace("devtools", quietly = TRUE)) {
-  install.packages("devtools")
-}
-devtools::install_github("bansell/tidyrstats")
-```
 
-```{r setup, eval=FALSE}
+```{r setup, eval=TRUE,message=FALSE}
 library(tidyrstats)
 ```
 
-```{r,echo=FALSE,message=FALSE}
+```{r,eval=TRUE,message=FALSE}
 library(ggplot2)
 library(dplyr)
 ```
 
-## neg_log()
+## `neg_log()`
 
-```{r,echo=FALSE,eval=TRUE}
+```{r,echo=FALSE,eval=TRUE,include=FALSE}
 toptags <- readRDS(glue::glue('{here::here()}/local/toptags_slim.Rds'))
 ```
 
@@ -75,7 +66,7 @@ toptags |>
   geom_point(size=0.5)
 ```
 
-## scale_this()
+## `scale_this()`
 
 This function scales and centres a numeric vector by subtracting the mean and dividing by the standard deviation.
 
@@ -98,7 +89,7 @@ iris_dat |>  as_tibble() |> mutate(scaled = scale_this(value))
 scale_this(iris_dat)
 ```
 
-## lm_test()
+## `lm_test()`
 
 This function provides a wrapper around `do(broom::tidy(lm(... , data = .))` which is very difficult to teach in a tidyverse-focused workshop; difficult for students to understand, as well as annoying to code!
 

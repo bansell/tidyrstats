@@ -1,6 +1,6 @@
 Package: tidyrstats
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Tidy Common R Statistical Functions
 Version: 0.1.0
 Authors@R: c(
     person(
@@ -9,8 +9,9 @@ Authors@R: c(
       role = c("aut", "cre")
     )
   )
-Description: More about what it does (maybe more than one line).
-    Continuation lines should be indented.
+Maintainer: Brendan Ansell <ansell.b@wehi.edu.au>
+Description: Provides functions to scale, log-transform and run linear models within tidyr / dplyr chains.
+    Intended for smoothing over inconsistencies from base R statistical functions, allowing ease of teaching, learning and daily use.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -28,4 +29,3 @@ Suggests:
     knitr,
     magrittr,
     rmarkdown
-VignetteBuilder: knitr

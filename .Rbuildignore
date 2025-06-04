@@ -4,7 +4,9 @@
 
 dev/
 local/
-
+^_vignettes$
+README.md
+README_files/
 
 ^doc$
 ^Meta$
