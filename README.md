@@ -34,11 +34,14 @@ expression experiment
     #> 5 gene_5 -5.22    4.93 -30.9 1.42e-11 0.0000000466  16.8
     #> 6 gene_6 -5.31    8.86 -29.6 2.22e-11 0.0000000466  16.7
 
-    toptags |> mutate(neg_logP = neg_log(P.Value)) |> 
+    toptags |> 
+      # - log10 transform the P.Value column
+      mutate(neg_logP = neg_log(P.Value)) |>
+      # volcano plot
       ggplot(aes(x=logFC,y=neg_logP)) + 
       geom_point(size=0.5)
 
-![](/Users/ansell.b/Library/CloudStorage/Dropbox/bioinf/tidyrstats/README_files/figure-markdown_strict/unnamed-chunk-6-1.png)
+![](/Users/ansell.b/Library/CloudStorage/Dropbox/bioinf/tidyrstats/README_files/figure-markdown_strict/unnamed-chunk-16-1.png)
 
 ## scale\_this()
 

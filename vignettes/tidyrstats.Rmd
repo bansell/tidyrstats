@@ -56,7 +56,10 @@ head(toptags)
 ```
 
 ```{r}
-toptags |> mutate(neg_logP = neg_log(P.Value)) |> 
+toptags |> 
+  # - log10 transform the P.Value column
+  mutate(neg_logP = neg_log(P.Value)) |>
+  # volcano plot
   ggplot(aes(x=logFC,y=neg_logP)) + 
   geom_point(size=0.5)
 ```
