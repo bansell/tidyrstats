@@ -44,7 +44,7 @@ library(dplyr)
 ## neg_log()
 
 ```{r,echo=FALSE,eval=TRUE}
-toptags <- readRDS('local/toptags_slim.Rds')
+toptags <- readRDS(glue::glue('{here::here()}/local/toptags_slim.Rds'))
 ```
 
 This function computes the negative logarithm of a numeric input using base 10 by default. This function returns the negative logarithm of `x`. By default, it uses base 10, but you can specify a different base using the `base` argument. Designed for quickly transforming p values for statistical analysis.

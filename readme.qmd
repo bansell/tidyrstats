@@ -1,9 +1,0 @@
----
-title: "readme"
-format: html
-editor: visual
----
-
-## tidyrstats
-
-Helper functions for common statistical functions in R.
