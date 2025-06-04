@@ -13,7 +13,6 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 
-setwd(here::here())
 
 #devtools::install_github('bansell/tidyrstats')
 devtools::load_all()
@@ -140,4 +139,3 @@ For nested input with a quoted model formula:
 ```{r}
 mpg |>  nest_by(class) |>  lm_test("cty ~ hwy * cyl + 0")
 ```
-
