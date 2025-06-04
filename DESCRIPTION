@@ -1,5 +1,6 @@
 Package: tidyrstats
 Type: Package
+Depends: R (>= 4.1.0)
 Title: Tidy Common R Statistical Functions
 Version: 0.1.0
 Authors@R: c(

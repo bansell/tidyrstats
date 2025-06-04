@@ -11,9 +11,8 @@
 #' @export
 #'
 #' @examples
-#' neg_log(10)           # -log10(10)
-#' neg_log(100, base=2)  # -log2(100)
-#' neg_log(c(1, 10, 100))
+#' pvals <- runif( n = 10, 1E-10 , 1E-2)
+#' neg_log(pvals)
 neg_log <- function(x, base = 10) {
   if (any(x <= 0, na.rm = TRUE)) {
     stop("All elements of 'x' must be positive.")
