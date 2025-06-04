@@ -64,7 +64,7 @@ We can -log10 transform the P.Value column
       ggplot(aes(x=logFC,y=neg_logP)) + 
       geom_point(size=0.5)
 
-![](/Users/ansell.b/Library/CloudStorage/Dropbox/bioinf/tidyrstats/README_files/figure-markdown_strict/unnamed-chunk-13-1.png)
+![](../README_files/figure-markdown_strict/unnamed-chunk-7-1.png)
 
 ## scale\_this()
 
