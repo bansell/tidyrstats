@@ -34,14 +34,37 @@ expression experiment
     #> 5 gene_5 -5.22    4.93 -30.9 1.42e-11 0.0000000466  16.8
     #> 6 gene_6 -5.31    8.86 -29.6 2.22e-11 0.0000000466  16.7
 
+We can -log10 transform the P.Value column
+
     toptags |> 
-      # - log10 transform the P.Value column
-      mutate(neg_logP = neg_log(P.Value)) |>
+      # -log10 transform the P.Value column
+      mutate(neg_logP = neg_log(P.Value)) 
+    #> # A tibble: 16,624 × 8
+    #>    geneID  logFC AveExpr     t  P.Value    adj.P.Val     B neg_logP
+    #>    <chr>   <dbl>   <dbl> <dbl>    <dbl>        <dbl> <dbl>    <dbl>
+    #>  1 gene_1  -4.10    7.07 -35.5 3.38e-12 0.0000000466  18.4     11.5
+    #>  2 gene_2  -4.35    5.66 -32.4 8.66e-12 0.0000000466  17.4     11.1
+    #>  3 gene_3  -4.72    6.46 -30.8 1.45e-11 0.0000000466  17.1     10.8
+    #>  4 gene_4  -3.77    6.29 -30.0 1.93e-11 0.0000000466  16.9     10.7
+    #>  5 gene_5  -5.22    4.93 -30.9 1.42e-11 0.0000000466  16.8     10.8
+    #>  6 gene_6  -5.31    8.86 -29.6 2.22e-11 0.0000000466  16.7     10.7
+    #>  7 gene_7  -3.82    6.70 -29.4 2.34e-11 0.0000000466  16.7     10.6
+    #>  8 gene_8   5.19    3.75  29.0 2.72e-11 0.0000000466  16.2     10.6
+    #>  9 gene_9  -5.66    4.42 -29.4 2.36e-11 0.0000000466  16.1     10.6
+    #> 10 gene_10 -5.38    6.30 -28.0 3.90e-11 0.0000000526  16.1     10.4
+    #> # ℹ 16,614 more rows
+
+…then create a volcano plot:
+
+
+    toptags |> 
+      # -log10 transform the P.Value column
+      mutate(neg_logP = neg_log(P.Value)) |> 
       # volcano plot
       ggplot(aes(x=logFC,y=neg_logP)) + 
       geom_point(size=0.5)
 
-![](/Users/ansell.b/Library/CloudStorage/Dropbox/bioinf/tidyrstats/README_files/figure-markdown_strict/unnamed-chunk-16-1.png)
+![](/Users/ansell.b/Library/CloudStorage/Dropbox/bioinf/tidyrstats/README_files/figure-markdown_strict/unnamed-chunk-13-1.png)
 
 ## scale\_this()
 

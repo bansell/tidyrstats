@@ -55,10 +55,22 @@ Say we have summary statistics results for an RNAseq differential expression exp
 head(toptags)
 ```
 
+We can -log10 transform the P.Value column
+
 ```{r}
 toptags |> 
-  # - log10 transform the P.Value column
-  mutate(neg_logP = neg_log(P.Value)) |>
+  # -log10 transform the P.Value column
+  mutate(neg_logP = neg_log(P.Value)) 
+
+```
+
+...then create a volcano plot:
+
+```{r, fig.width = 6,fig.height=4}
+
+toptags |> 
+  # -log10 transform the P.Value column
+  mutate(neg_logP = neg_log(P.Value)) |> 
   # volcano plot
   ggplot(aes(x=logFC,y=neg_logP)) + 
   geom_point(size=0.5)
@@ -128,3 +140,4 @@ For nested input with a quoted model formula:
 ```{r}
 mpg |>  nest_by(class) |>  lm_test("cty ~ hwy * cyl + 0")
 ```
+
