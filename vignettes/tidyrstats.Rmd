@@ -1,0 +1,127 @@
+---
+title: "tidyrstats"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{tidyrstats}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+
+setwd(here::here())
+
+#devtools::install_github('bansell/tidyrstats')
+devtools::load_all()
+```
+
+## Description 
+
+This package contains helper functions for implementing common statistical functions in R, within tidy workflows.
+
+## Install
+
+```{r, eval=FALSE}
+if (!requireNamespace("devtools", quietly = TRUE)) {
+  install.packages("devtools")
+}
+devtools::install_github("bansell/tidyrstats")
+```
+
+```{r setup, eval=FALSE}
+library(tidyrstats)
+```
+
+```{r,echo=FALSE,message=FALSE}
+library(ggplot2)
+library(dplyr)
+```
+
+## neg_log()
+
+```{r,echo=FALSE,eval=TRUE}
+toptags <- readRDS('local/toptags_slim.Rds')
+```
+
+This function computes the negative logarithm of a numeric input using base 10 by default. This function returns the negative logarithm of `x`. By default, it uses base 10, but you can specify a different base using the `base` argument. Designed for quickly transforming p values for statistical analysis.
+
+Say we have summary statistics results for an RNAseq differential expression experiment
+
+```{r}
+head(toptags)
+```
+
+```{r}
+toptags |> mutate(neg_logP = neg_log(P.Value)) |> 
+  ggplot(aes(x=logFC,y=neg_logP)) + 
+  geom_point(size=0.5)
+```
+
+## scale_this()
+
+This function scales and centres a numeric vector by subtracting the mean and dividing by the standard deviation.
+
+Unlike `base::scale()`, it returns a numeric vector, not a matrix, making it play well with tidy data structures and dplyr chained code. Note this function does not allow control over centering or scaling at present.
+
+`` scale_this` `` will drop NA values before scaling, by default (as is the case for `base::scale()`). However the function will include original NA values in the output, and generate a warning message.
+
+```{r}
+
+iris_dat <- c(head(iris$Sepal.Length),NA)
+
+iris_dat |>  as_tibble() |> mutate(scaled = scale_this(value))
+
+
+```
+
+`scale_this()` will also work with a simple numeric vector:
+
+```{r}
+scale_this(iris_dat)
+```
+
+## lm_test()
+
+This function provides a wrapper around `do(broom::tidy(lm(... , data = .))` which is very difficult to teach in a tidyverse-focused workshop; difficult for students to understand, as well as annoying to code!
+
+`lm_test()` is compatible with grouped or nested input, and compatible with the native R pipe `|>` or magrittr pipe `%>%`. It accepts a quoted or unquoted model formula.
+
+`lm_test()` returns a tibble containing the tidied output of `lm()`, sorted by p-value, which includes the following columns:
+
+-   **term**: The name of the model term (such as the intercept, predictors, or interaction terms).
+
+-   **estimate**: The estimated coefficient (also known as the beta value).
+
+-   **std.error**: The standard error associated with the estimate.
+
+-   **statistic**: The t-statistic used in hypothesis testing.
+
+-   **p.value**: The p-value indicating the significance of the term.
+
+If the input data is grouped or nested, the output will retain the group identifiers. In both cases, the grouping/nesting identifiers will appear in the left-most columns of the tibble.
+
+For ungrouped input:
+
+```{r}
+
+mpg %>% lm_test( cty ~ hwy )
+
+```
+
+For grouped input:
+
+```{r}
+
+mpg %>% group_by(class) %>%  lm_test(cty ~ hwy * cyl + 0)
+
+```
+
+For nested input with a quoted model formula:
+
+```{r}
+mpg |>  nest_by(class) |>  lm_test("cty ~ hwy * cyl + 0")
+```

@@ -7,12 +7,12 @@
 #' @param x A numeric vector.
 #' @return A numeric vector of scaled values.
 
-#' @importFrom stats sd mean
+#' @importFrom stats sd
 
 #' @examples
-#' iris_dat <- head(iris)
-#' scale_this(iris_dat$Sepal.Length)
-#' scale_this(c(iris_dat$Sepal.Length, NA))
+#' iris_dat <- head(iris$Sepal.Length)
+#' scale_this(iris_dat)
+#' scale_this(c(iris_dat, NA))
 
 #' @export
 scale_this <- function(x) {
@@ -21,7 +21,7 @@ scale_this <- function(x) {
   }
 
   if (any(is.na(x))) {
-    message("Input contains NA values. Consider resolving these before scaling.")
+    message("Input contains NA values. These are removed before scaling.")
   }
 
   mu <- mean(x, na.rm = TRUE)

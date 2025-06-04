@@ -17,7 +17,7 @@ This function scales and centres a numeric vector by subtracting the mean and di
 Unlike `scale()`, it returns a numeric vector, not a matrix. Note this function does not allow control over centering or scaling.
 }
 \examples{
-iris_dat <- head(iris)
-scale_this(iris_dat$Sepal.Length)
-scale_this(c(iris_dat$Sepal.Length, NA))
+iris_dat <- head(iris$Sepal.Length)
+scale_this(iris_dat)
+scale_this(c(iris_dat, NA))
 }

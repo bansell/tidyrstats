@@ -24,5 +24,8 @@ Imports:
   stringr,
   stats
 Suggests:
-  ggplot2,
-  magrittr
+    ggplot2,
+    knitr,
+    magrittr,
+    rmarkdown
+VignetteBuilder: knitr

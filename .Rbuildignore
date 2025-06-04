@@ -1,6 +1,9 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
-dev/
 ^LICENSE\.md$
 
+dev/
+local/
 
+^doc$
+^Meta$
