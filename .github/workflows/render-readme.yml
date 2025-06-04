@@ -23,6 +23,10 @@ jobs:
           install.packages(c("rmarkdown", "here", "glue", "tidyverse"))
         shell: Rscript {0}
 
+
+      - name: Set up Pandoc
+        uses: r-lib/actions/setup-pandoc@v2
+
       - name: Render README
         run: |
          rmarkdown::render("vignettes/tidyrstats.Rmd",
@@ -30,6 +34,9 @@ jobs:
                   #output_file = glue::glue("{here::here()}/README.md"))
                   output_file = '../README.md')
         shell: Rscript {0}
+
+
+
 
       - name: Commit and push rendered README
         run: |
